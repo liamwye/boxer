@@ -1,0 +1,14 @@
+{
+  "name": "Boxer",
+  "version": "1.0.0",
+  "description": "A lightweight IRC client designed and build for Node.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liam Wye",
+  "license": "MIT",
+  "dependencies": {
+    "irc": "^0.3.7"
+  }
+}
