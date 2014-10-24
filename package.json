@@ -2,7 +2,7 @@
   "name": "Boxer",
   "version": "1.0.0",
   "description": "A lightweight IRC client designed and build for Node.",
-  "main": "app.js",
+  "main": "boxer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
