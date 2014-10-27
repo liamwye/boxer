@@ -1,0 +1,5 @@
+{
+    "name": "hapi-socket",
+    "version": "0.0.1",
+    "description": "A basic Hapi socket.io plugin."
+}

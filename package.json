@@ -3,12 +3,27 @@
   "version": "1.0.0",
   "description": "A lightweight IRC client designed and build for Node.",
   "main": "boxer.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liamwye/boxer.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Liam Wye",
+  "author": {
+    "name": "Liam Wye",
+    "email": "hello@liamwye.me",
+    "url": "www.liamwye.me"
+  },
   "license": "MIT",
   "dependencies": {
-    "irc": "^0.3.7"
+    "confidence": "^1.0.0",
+    "good": "^2.4.2",
+    "handlebars": "^2.0.0",
+    "hapi": "^7.1.1",
+    "irc": "^0.3.7",
+    "mongoose": "^3.8.18",
+    "q": "^1.0.1",
+    "socket.io": "^1.1.0"
   }
 }
