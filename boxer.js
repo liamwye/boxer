@@ -53,7 +53,9 @@
           }
         },
         compileMode: 'async',
-        path: 'templates'
+        path: 'templates',
+        layout: true,
+        isCached: false
       });
 
       // Register the socket handler with the server
@@ -69,7 +71,7 @@
       });
     })
     .fail(function(err) {
-      server.log('error', err);
+      server.log('error', err.message);
       throw err;
     });
   });
