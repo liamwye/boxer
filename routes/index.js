@@ -1,12 +1,6 @@
 var Handlers = require('./handlers');
 
-module.exports = [
-  {
-    method: 'GET',
-    path: '/',
-    config: Handlers.home
-  },
-  {
+module.exports = [{
     method: 'GET',
     path: '/assets/{path*}',
     handler: {
@@ -16,5 +10,17 @@ module.exports = [
         index: false
       }
     }
+  }, {
+    method: 'GET',
+    path: '/',
+    config: Handlers.home
+  }, {
+    method: ['GET', 'POST'],
+    path: '/login',
+    config: Handlers.login
+  }, {
+    method: 'GET',
+    path: '/logout',
+    config: Handlers.logout
   }
 ];

@@ -28,51 +28,65 @@
       throw err; // Something bad happened...
     }
 
-    // Continue initialisation...
-    server.log('info', 'Connecting to MongoDB...');
-    Q.ninvoke(Mongoose, 'connect', 'mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.db)
-    .then(function() {
-      server.log('info', 'Connected to MongoDB.');
+    // Register and define the authentication strategy
+    server.pack.register(require('hapi-auth-cookie'), function (err) {
+      if (err) {
+        throw err; // Something bad happened...
+      }
 
-      Mongoose.connection.on('error', function(err) {
-        server.log('error', 'MongoDB: ' + err.message);
+      server.auth.strategy('session', 'cookie', {
+          password: 'secret',
+          cookie: 'sid-example',
+          redirectTo: '/login',
+          isSecure: false
+      });
+
+      // Continue initialisation...
+      server.log('info', 'Connecting to MongoDB...');
+      Q.ninvoke(Mongoose, 'connect', 'mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.db)
+      .then(function() {
+        server.log('info', 'Connected to MongoDB.');
+
+        Mongoose.connection.on('error', function(err) {
+          server.log('error', 'MongoDB: ' + err.message);
+          throw err;
+        });
+      })
+      .then(function() {
+        // Define the server routes
+        server.route(require('./routes'));
+
+        // Define the views
+        // HTML files handled by handlebars
+        server.views({
+          engines:{
+            'html': {
+              module: require('handlebars'),
+              compileMode: 'sync'
+            }
+          },
+          compileMode: 'async',
+          path: 'templates',
+          layout: true,
+          isCached: false
+        });
+
+        // Register the socket handler with the server
+        server.pack.register(require('./lib/hapi-socket'), function(err) {
+          if (err) {
+            throw err;
+          }
+        });
+
+        // Start the server
+        server.start(function() {
+          server.log('info', 'Server running at: ' + server.info.uri);
+        });
+      })
+      .fail(function(err) {
+        server.log('error', err.message);
         throw err;
       });
-    })
-    .then(function() {
-      // Define the server routes
-      server.route(require('./routes'));
-
-      // Define the views
-      // HTML files handled by handlebars
-      server.views({
-        engines:{
-          'html': {
-            module: require('handlebars'),
-            compileMode: 'sync'
-          }
-        },
-        compileMode: 'async',
-        path: 'templates',
-        layout: true,
-        isCached: false
-      });
-
-      // Register the socket handler with the server
-      server.pack.register(require('./lib/hapi-socket'), function(err) {
-        if (err) {
-          throw err;
-        }
-      });
-
-      // Start the server
-      server.start(function() {
-        server.log('info', 'Server running at: ' + server.info.uri);
-      });
-    })
-    .fail(function(err) {
-      server.log('error', err.message);
-      throw err;
     });
   });
 })();
