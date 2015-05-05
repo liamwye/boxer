@@ -31,14 +31,14 @@ module.exports = {
     $filter: 'env',
     production: {
       from: {
-        name: 'Grim',
-        address: 'grim@liamwye.me'
+        name: '',
+        address: ''
       },
       transport: {
           service: 'Mailgun',
           auth: {
-            user: 'postmaster@liamwye.me',
-            pass: '736ad6f1091aaa6aee8963eb8642b892'
+            user: '',
+            pass: ''
           }
       }
     },
@@ -50,8 +50,8 @@ module.exports = {
       transport: {
           service: 'Mailgun',
           auth: {
-            user: 'postmaster@sandbox727bba01f84846ffa4ef0a4a09fac9ea.mailgun.org',
-            pass: '537af57abb27fa0ecdf69432431f5f3f'
+            user: '',
+            pass: ''
           }
       }
     }
